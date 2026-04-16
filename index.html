@@ -895,7 +895,7 @@
         </svg>
     </button>
 
-    <audio id="bgMusic" loop preload="auto" autoplay>
+    <audio id="bgMusic" loop preload="auto" autoplay playsinline>
         <source src="https://raw.githubusercontent.com/ksanthosh95/Other/main/Keethan_-_Kalale_ft._Sony_Mohan_Akshay_Radhakrishnan_Mia_Paul_Official_Visualizer_128kbps_861407_cut.mp3" type="audio/mpeg">
     </audio>
 
@@ -904,14 +904,17 @@
         const bgMusic = document.getElementById('bgMusic');
         let isPlaying = false;
 
-        window.addEventListener('load', function() {
+        function startAudio() {
             bgMusic.play().then(() => {
                 musicBtn.classList.add('playing');
                 isPlaying = true;
             }).catch(e => {
-                console.log('Auto-play blocked');
+                console.log('Auto-play blocked, will retry on user interaction');
             });
-        });
+        }
+
+        window.addEventListener('load', startAudio);
+        document.addEventListener('click', startAudio, { once: true });
 
         bgMusic.addEventListener('play', () => {
             musicBtn.classList.add('playing');
