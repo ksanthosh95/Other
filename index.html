@@ -10,8 +10,8 @@
     <meta property="og:title" content="Engagement Ceremony - Shanthosh & Vishruthaa">
     <meta property="og:description" content="With hearts full of love and joy, we cordially invite you to celebrate the beginning of our journey together. 08 May 2026 • AVS Mahal, Sathyamangalam">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ksanthosh95.github.io/Other/">
-    <meta property="og:image" content="https://raw.githubusercontent.com/ksanthosh95/Other/main/Gemini_Generated_Image_y5fyamy5fyamy5fy.png">
+    <meta property="og:url" content="http://vishruthaa.shanthosh.in/">
+    <meta property="og:image" content="https://i.ibb.co/5XKcg1hM/Gemini-Generated-Image-y5fyamy5fyamy5fy.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Engagement Ceremony - Shanthosh & Vishruthaa">
@@ -21,7 +21,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Engagement Ceremony - Shanthosh & Vishruthaa">
     <meta name="twitter:description" content="With hearts full of love and joy, we cordially invite you to celebrate the engagement. 08 May 2026 • AVS Mahal, Sathyamangalam">
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/ksanthosh95/Other/main/Gemini_Generated_Image_y5fyamy5fyamy5fy.png">
+    <meta name="twitter:image" content="https://i.ibb.co/5XKcg1hM/Gemini-Generated-Image-y5fyamy5fyamy5fy.png">
     
     <!-- WhatsApp-specific -->
     <meta property="og:site_name" content="Engagement Invitation">
@@ -895,7 +895,7 @@
         </svg>
     </button>
 
-    <audio id="bgMusic" loop>
+    <audio id="bgMusic" loop preload="auto">
         <source src="https://raw.githubusercontent.com/ksanthosh95/Other/main/Keethan_-_Kalale_ft._Sony_Mohan_Akshay_Radhakrishnan_Mia_Paul_Official_Visualizer_128kbps_861407_cut.mp3" type="audio/mpeg">
     </audio>
 
@@ -903,21 +903,28 @@
         const musicBtn = document.getElementById('musicBtn');
         const bgMusic = document.getElementById('bgMusic');
         let isPlaying = false;
+        let autoPlayAttempted = false;
 
         function playMusic() {
-            bgMusic.play().then(() => {
-                musicBtn.classList.add('playing');
-                isPlaying = true;
-            }).catch(e => {
-                console.log('Click to play music');
-            });
+            const playPromise = bgMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicBtn.classList.add('playing');
+                    isPlaying = true;
+                }).catch(error => {
+                    console.log('Auto-play blocked, click button to play');
+                });
+            }
         }
 
-        bgMusic.addEventListener('canplay', playMusic, { once: true });
+        document.addEventListener('click', function initAudio() {
+            if (!autoPlayAttempted) {
+                autoPlayAttempted = true;
+                playMusic();
+            }
+        }, { once: true });
 
-        setTimeout(() => {
-            if (!isPlaying) playMusic();
-        }, 1500);
+        bgMusic.addEventListener('canplaythrough', playMusic);
 
         musicBtn.addEventListener('click', () => {
             if (isPlaying) {
