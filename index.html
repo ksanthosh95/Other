@@ -17,7 +17,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="675">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="theme-color" content="#5C0D18">
+    <meta name="theme-color" content="#061224">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪔</text></svg>">
 
@@ -30,21 +30,25 @@
 
     <style>
         :root {
-            --maroon-deep: #3D050C;
-            --maroon-rich: #5C0D18;
-            --maroon-crimson: #781220;
-            --maroon-glow: #991B2B;
+            --maroon-deep: #050D1A;
+            --maroon-rich: #0B1D3A;
+            --maroon-crimson: #102A54;
+            --maroon-glow: #183C75;
+            --royal-blue-deep: #050D1A;
+            --royal-blue-rich: #0B1D3A;
+            --royal-blue-sapphire: #102A54;
+            --royal-blue-glow: #183C75;
             --gold-base: #C59B27;
             --gold-bright: #E6C35C;
             --gold-metallic: #FFD700;
             --gold-foil: linear-gradient(135deg, #FBF0B9 0%, #D4AF37 40%, #AA7C11 75%, #F4D068 100%);
             --gold-foil-text: -webkit-linear-gradient(135deg, #FFF1C5, #D4AF37, #F3D37A, #AA7C11);
-            --ivory-silk: #FAF7F2;
-            --cream-card: #FFFDF9;
+            --ivory-silk: #F4F7FC;
+            --cream-card: #0A1B38;
             --emerald-deep: #0D3328;
-            --text-dark: #2B1619;
-            --text-muted: #6E5357;
-            --shadow-regal: 0 15px 40px rgba(61, 5, 12, 0.35);
+            --text-dark: #071224;
+            --text-muted: #8EA1C0;
+            --shadow-regal: 0 15px 40px rgba(2, 8, 20, 0.65);
             --shadow-gold: 0 0 25px rgba(212, 175, 55, 0.4);
             --border-radius-card: 24px;
         }
@@ -75,10 +79,10 @@
             height: 100vh;
             z-index: -3;
             background:
-                radial-gradient(circle at 50% 10%, rgba(153, 27, 43, 0.5) 0%, transparent 60%),
-                radial-gradient(circle at 10% 40%, rgba(120, 18, 32, 0.6) 0%, transparent 50%),
-                radial-gradient(circle at 90% 80%, rgba(61, 5, 12, 0.8) 0%, transparent 60%),
-                linear-gradient(180deg, #38030A 0%, #4D0A13 40%, #2A0207 100%);
+                radial-gradient(circle at 50% 10%, rgba(24, 60, 117, 0.55) 0%, transparent 60%),
+                radial-gradient(circle at 10% 40%, rgba(16, 42, 84, 0.65) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(5, 13, 26, 0.85) 0%, transparent 60%),
+                linear-gradient(180deg, #040914 0%, #0B1B36 40%, #03070F 100%);
         }
 
         .bg-hero-photo {
@@ -91,8 +95,8 @@
             background-image: url('chettiyar-wedding-bg.jpg');
             background-size: cover;
             background-position: center top;
-            opacity: 0.16;
-            filter: blur(2px) saturate(1.2);
+            opacity: 0.12;
+            filter: blur(2px) saturate(0.8) hue-rotate(190deg);
             pointer-events: none;
         }
 
@@ -264,7 +268,7 @@
 
         /* Royal Chettinad Invitation Card */
         .royal-card {
-            background: linear-gradient(180deg, rgba(77, 10, 19, 0.95) 0%, rgba(53, 5, 11, 0.98) 100%);
+            background: linear-gradient(180deg, rgba(14, 34, 70, 0.96) 0%, rgba(6, 16, 34, 0.98) 100%);
             border: 2px solid #D4AF37;
             border-radius: var(--border-radius-card);
             padding: 55px 40px;
@@ -462,7 +466,7 @@
 
         /* Countdown Timer Component */
         .countdown-section {
-            background: rgba(43, 4, 9, 0.85);
+            background: rgba(7, 18, 38, 0.88);
             border: 1px solid rgba(212, 175, 55, 0.4);
             border-radius: 18px;
             padding: 24px 20px;
@@ -569,7 +573,7 @@
         }
 
         .event-card {
-            background: linear-gradient(160deg, rgba(82, 12, 21, 0.9) 0%, rgba(46, 5, 10, 0.95) 100%);
+            background: linear-gradient(160deg, rgba(14, 34, 70, 0.92) 0%, rgba(7, 18, 38, 0.96) 100%);
             border: 2px solid #D4AF37;
             border-radius: 20px;
             padding: 35px 28px;
@@ -757,7 +761,7 @@
             bottom: calc(100% + 8px);
             left: 0;
             width: 100%;
-            background: #4A0812;
+            background: #0B1E3F;
             border: 1px solid #D4AF37;
             border-radius: 12px;
             padding: 8px;
@@ -802,7 +806,7 @@
 
         /* Venue Card */
         .venue-card {
-            background: linear-gradient(170deg, rgba(61, 5, 12, 0.95) 0%, rgba(41, 3, 8, 0.98) 100%);
+            background: linear-gradient(170deg, rgba(11, 26, 54, 0.96) 0%, rgba(5, 13, 28, 0.98) 100%);
             border: 2px solid #D4AF37;
             border-radius: var(--border-radius-card);
             padding: 40px;
@@ -925,7 +929,7 @@
             border: 2px solid #D4AF37;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
             min-height: 280px;
-            background: #250207;
+            background: #030814;
         }
 
         .map-interactive-box iframe {
@@ -938,7 +942,7 @@
 
         /* IT COMMUTE & TRANSIT CONCIERGE (Bengaluru & Chennai) */
         .transit-section {
-            background: linear-gradient(180deg, rgba(58, 8, 15, 0.96) 0%, rgba(38, 4, 9, 0.98) 100%);
+            background: linear-gradient(180deg, rgba(10, 25, 52, 0.96) 0%, rgba(5, 13, 28, 0.98) 100%);
             border: 2px solid #D4AF37;
             border-radius: var(--border-radius-card);
             padding: 45px 35px;
@@ -948,7 +952,7 @@
 
         /* Critical IRCTC Booking Notice Banner */
         .irctc-notice-banner {
-            background: linear-gradient(90deg, #8B1824 0%, #B82232 50%, #8B1824 100%);
+            background: linear-gradient(90deg, #143568 0%, #20509A 50%, #143568 100%);
             border: 2px solid #FFD700;
             border-radius: 16px;
             padding: 18px 24px;
@@ -956,13 +960,13 @@
             display: flex;
             align-items: center;
             gap: 16px;
-            box-shadow: 0 6px 20px rgba(184, 34, 50, 0.4);
+            box-shadow: 0 6px 20px rgba(32, 80, 154, 0.4);
             animation: gentlePulse 3s infinite alternate;
         }
 
         @keyframes gentlePulse {
             0% {
-                box-shadow: 0 6px 20px rgba(184, 34, 50, 0.4);
+                box-shadow: 0 6px 20px rgba(32, 80, 154, 0.4);
             }
 
             100% {
@@ -1003,7 +1007,7 @@
 
         .notice-text {
             font-size: 0.92rem;
-            color: #FFE6E8;
+            color: #E2EDFB;
             line-height: 1.5;
         }
 
@@ -1205,7 +1209,7 @@
 
         /* TOURISM & SIGHTSEEING SECTION */
         .tourism-section {
-            background: linear-gradient(180deg, rgba(61, 5, 12, 0.95) 0%, rgba(41, 3, 8, 0.98) 100%);
+            background: linear-gradient(180deg, rgba(10, 24, 48, 0.95) 0%, rgba(5, 13, 28, 0.98) 100%);
             border: 2px solid #D4AF37;
             border-radius: var(--border-radius-card);
             padding: 45px 35px;
@@ -1331,7 +1335,7 @@
 
         /* BLESSINGS & RSVP SECTION */
         .rsvp-section {
-            background: linear-gradient(175deg, rgba(74, 10, 18, 0.95) 0%, rgba(43, 4, 9, 0.98) 100%);
+            background: linear-gradient(175deg, rgba(12, 28, 58, 0.96) 0%, rgba(6, 16, 34, 0.98) 100%);
             border: 2px solid #D4AF37;
             border-radius: var(--border-radius-card);
             padding: 45px 35px;
@@ -1417,7 +1421,7 @@
 
         .guest-pill.active {
             background: linear-gradient(135deg, #D4AF37 0%, #AA771C 100%);
-            color: #2B0409;
+            color: #030814;
             border-color: #FFF1C5;
             font-weight: 700;
             box-shadow: 0 3px 12px rgba(212, 175, 55, 0.4);
@@ -1433,7 +1437,7 @@
         }
 
         .wa-rsvp-card {
-            background: linear-gradient(145deg, rgba(82, 12, 21, 0.7) 0%, rgba(35, 3, 7, 0.85) 100%);
+            background: linear-gradient(145deg, rgba(14, 34, 70, 0.8) 0%, rgba(6, 16, 34, 0.92) 100%);
             border: 1px solid rgba(212, 175, 55, 0.35);
             border-radius: 18px;
             padding: 30px 22px 24px 22px;
@@ -1454,7 +1458,7 @@
 
         .wa-rsvp-card.featured {
             border: 2px solid #FFD700;
-            background: linear-gradient(145deg, rgba(100, 15, 26, 0.8) 0%, rgba(45, 5, 10, 0.95) 100%);
+            background: linear-gradient(145deg, rgba(18, 44, 90, 0.85) 0%, rgba(8, 20, 42, 0.96) 100%);
             box-shadow: 0 8px 30px rgba(212, 175, 55, 0.25);
         }
 
@@ -1462,7 +1466,7 @@
             position: absolute;
             top: -12px;
             background: linear-gradient(135deg, #FFDF73 0%, #D4AF37 100%);
-            color: #2B0409;
+            color: #030814;
             font-size: 0.72rem;
             font-weight: 800;
             letter-spacing: 1px;
@@ -1548,7 +1552,7 @@
 
         /* WHATSAPP SHARE CARD */
         .share-invite-card {
-            background: linear-gradient(135deg, rgba(82, 12, 21, 0.8) 0%, rgba(43, 4, 9, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(14, 34, 70, 0.85) 0%, rgba(6, 16, 34, 0.95) 100%);
             border: 1px dashed #D4AF37;
             border-radius: 18px;
             padding: 30px 24px;
@@ -1767,22 +1771,22 @@
             <svg class="corner-mandap tl" viewBox="0 0 70 70">
                 <path d="M0,0 L70,0 C40,0 20,20 20,50 L20,70 L0,70 Z" fill="none" stroke="#D4AF37" stroke-width="2" />
                 <circle cx="28" cy="28" r="8" fill="#D4AF37" />
-                <circle cx="28" cy="28" r="4" fill="#6A0D1B" />
+                <circle cx="28" cy="28" r="4" fill="#0B1D3A" />
             </svg>
             <svg class="corner-mandap tr" viewBox="0 0 70 70">
                 <path d="M0,0 L70,0 C40,0 20,20 20,50 L20,70 L0,70 Z" fill="none" stroke="#D4AF37" stroke-width="2" />
                 <circle cx="28" cy="28" r="8" fill="#D4AF37" />
-                <circle cx="28" cy="28" r="4" fill="#6A0D1B" />
+                <circle cx="28" cy="28" r="4" fill="#0B1D3A" />
             </svg>
             <svg class="corner-mandap bl" viewBox="0 0 70 70">
                 <path d="M0,0 L70,0 C40,0 20,20 20,50 L20,70 L0,70 Z" fill="none" stroke="#D4AF37" stroke-width="2" />
                 <circle cx="28" cy="28" r="8" fill="#D4AF37" />
-                <circle cx="28" cy="28" r="4" fill="#6A0D1B" />
+                <circle cx="28" cy="28" r="4" fill="#0B1D3A" />
             </svg>
             <svg class="corner-mandap br" viewBox="0 0 70 70">
                 <path d="M0,0 L70,0 C40,0 20,20 20,50 L20,70 L0,70 Z" fill="none" stroke="#D4AF37" stroke-width="2" />
                 <circle cx="28" cy="28" r="8" fill="#D4AF37" />
-                <circle cx="28" cy="28" r="4" fill="#6A0D1B" />
+                <circle cx="28" cy="28" r="4" fill="#0B1D3A" />
             </svg>
 
             <!-- Auspicious Mandap Center Piece -->
@@ -2499,7 +2503,8 @@
                 <div class="athangudi-diamond"></div>
             </div>
             <div class="footer-blessing-tamil">
-                "தங்களின் வரவு எங்கள் வாழ்வின் பெருமகிழ்ச்சி"
+                "A celebration of new beginnings, a promise of forever, and the joy of sharing it with our dearest
+                ones."
             </div>
             <div class="footer-credits">
                 With Love & Warm Blessings • Shanthosh & Vishruthaa • November 2026
@@ -2524,7 +2529,7 @@
             height = canvas.height = window.innerHeight;
         });
 
-        const petalColors = ['#FFF9E6', '#FFE680', '#FFD700', '#FFB6C1', '#FF69B4', '#E63946'];
+        const petalColors = ['#FFF9E6', '#FFE680', '#FFD700', '#D4AF37', '#93C5FD', '#60A5FA', '#E0F2FE'];
         const petals = [];
         const petalCount = window.innerWidth < 600 ? 25 : 45;
 
