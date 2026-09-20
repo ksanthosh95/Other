@@ -2438,66 +2438,212 @@
             height = canvas.height = window.innerHeight;
         });
 
-        const petalColors = ['#FFF9E6', '#FFE680', '#FFD700', '#D4AF37', '#93C5FD', '#60A5FA', '#E0F2FE'];
+        // Curated traditional wedding flower palettes matching Royal Midnight Sapphire & Gold theme
+        const flowerPalettes = [
+            // Jasmine / Malligai (4-Petal fragrant star with golden center)
+            { type: 'jasmine', petal: '#FFFDF0', core: '#F59E0B', edge: 'rgba(212, 175, 55, 0.35)', centerDot: '#FFFDE8' },
+            { type: 'jasmine', petal: '#FFFFFD', core: '#D97706', edge: 'rgba(245, 158, 11, 0.3)', centerDot: '#FEF9C3' },
+            // Royal 5-Petal Blossom (Soft Sapphire Blue with golden pistil)
+            { type: 'blossom5', petal: '#BFDBFE', core: '#F59E0B', edge: 'rgba(147, 197, 253, 0.45)', centerDot: '#FFFBEB' },
+            { type: 'blossom5', petal: '#E0F2FE', core: '#EAB308', edge: 'rgba(56, 189, 248, 0.4)', centerDot: '#FFFFFF' },
+            { type: 'blossom5', petal: '#93C5FD', core: '#D97706', edge: 'rgba(96, 165, 250, 0.4)', centerDot: '#FEF08A' },
+            // Swarna Pushpam / Golden Wedding Blossom (Sampangi / Saffron Gold)
+            { type: 'blossom5', petal: '#FDE68A', core: '#B45309', edge: 'rgba(217, 119, 6, 0.35)', centerDot: '#FFFBEB' },
+            { type: 'blossom5', petal: '#FCD34D', core: '#92400E', edge: 'rgba(212, 175, 55, 0.45)', centerDot: '#FFF' },
+            // Organic Lotus & Champagne Rose Petals (Curved petal with subtle spine vein)
+            { type: 'petal', petal: '#FFFBEB', vein: 'rgba(212, 175, 55, 0.5)', edge: 'rgba(212, 175, 55, 0.35)' },
+            { type: 'petal', petal: '#DBEAFE', vein: 'rgba(59, 130, 246, 0.45)', edge: 'rgba(147, 197, 253, 0.4)' },
+            { type: 'petal', petal: '#FEF3C7', vein: 'rgba(245, 158, 11, 0.45)', edge: 'rgba(245, 158, 11, 0.35)' }
+        ];
+
         const petals = [];
-        const petalCount = window.innerWidth < 600 ? 25 : 45;
+        const petalCount = window.innerWidth < 600 ? 24 : 36;
 
         class Petal {
-            constructor() {
-                this.reset();
+            constructor(isBurst = false) {
+                this.isBurst = isBurst;
+                this.reset(true);
             }
 
-            reset() {
+            reset(initialSpread = false) {
+                this.palette = flowerPalettes[Math.floor(Math.random() * flowerPalettes.length)];
+                this.type = this.palette.type;
                 this.x = Math.random() * width;
-                this.y = -20 - Math.random() * 50;
-                this.size = Math.random() * 8 + 6;
-                this.speedY = Math.random() * 1.2 + 0.8;
-                this.speedX = Math.sin(Math.random() * 2) * 0.8;
+                this.y = initialSpread ? Math.random() * height : -25 - Math.random() * 40;
+                this.size = this.type === 'petal' ? (Math.random() * 5 + 8) : (Math.random() * 5 + 7.5);
+                this.speedY = Math.random() * 0.85 + 0.55;
+                this.speedX = Math.sin(Math.random() * 2) * 0.5;
                 this.angle = Math.random() * 360;
                 this.angularSpeed = (Math.random() - 0.5) * 1.5;
-                this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
-                this.opacity = Math.random() * 0.5 + 0.4;
+                this.opacity = Math.random() * 0.3 + 0.65;
                 this.wobble = Math.random() * Math.PI * 2;
-                this.wobbleSpeed = Math.random() * 0.03 + 0.01;
+                this.wobbleSpeed = Math.random() * 0.02 + 0.01;
+                this.flip = Math.random() * Math.PI * 2;
+                this.flipSpeed = Math.random() * 0.03 + 0.015;
             }
 
             update() {
+                if (this.isBurst) {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.speedY += 0.12;
+                    this.speedX *= 0.96;
+                    this.angle += this.angularSpeed * 1.8;
+                    this.flip += this.flipSpeed * 2;
+                    this.opacity -= 0.014;
+                    return this.opacity > 0;
+                }
+
                 this.y += this.speedY;
                 this.wobble += this.wobbleSpeed;
-                this.x += Math.sin(this.wobble) * 1.2 + this.speedX;
+                this.x += Math.sin(this.wobble) * 1.1 + this.speedX;
                 this.angle += this.angularSpeed;
+                this.flip += this.flipSpeed;
 
-                if (this.y > height + 20) {
-                    this.reset();
+                if (this.y > height + 30 || this.x < -50 || this.x > width + 50) {
+                    this.reset(false);
                 }
+                return true;
             }
 
             draw() {
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.angle * Math.PI / 180);
-                ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = this.color;
 
-                // Draw delicate petal shape
-                ctx.beginPath();
-                ctx.ellipse(0, 0, this.size, this.size * 0.55, 0, 0, Math.PI * 2);
-                ctx.fill();
+                // 3D perspective tumbling (realistic flutter in air instead of flat circular balls)
+                const flipFactor = Math.cos(this.flip);
+                ctx.scale(flipFactor, 1);
+                ctx.globalAlpha = Math.max(0, this.opacity * (0.65 + 0.35 * Math.abs(flipFactor)));
+
+                if (this.type === 'blossom5') {
+                    this.drawBlossom5();
+                } else if (this.type === 'jasmine') {
+                    this.drawJasmine();
+                } else {
+                    this.drawPetal();
+                }
+
                 ctx.restore();
+            }
+
+            drawBlossom5() {
+                const count = 5;
+                const step = (Math.PI * 2) / count;
+                const r = this.size;
+                const pw = r * 0.45;
+
+                // 5 individual rounded petals
+                for (let i = 0; i < count; i++) {
+                    ctx.save();
+                    ctx.rotate(i * step);
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.bezierCurveTo(-pw, -r * 0.4, -pw * 0.85, -r * 0.95, 0, -r);
+                    ctx.bezierCurveTo(pw * 0.85, -r * 0.95, pw, -r * 0.4, 0, 0);
+                    ctx.fillStyle = this.palette.petal;
+                    ctx.fill();
+                    ctx.strokeStyle = this.palette.edge;
+                    ctx.lineWidth = 0.6;
+                    ctx.stroke();
+
+                    // subtle inner petal vein
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.lineTo(0, -r * 0.65);
+                    ctx.strokeStyle = this.palette.edge;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                    ctx.restore();
+                }
+
+                // Center golden stamen disk
+                ctx.beginPath();
+                ctx.arc(0, 0, r * 0.28, 0, Math.PI * 2);
+                ctx.fillStyle = this.palette.core;
+                ctx.fill();
+
+                // Center bright pollen highlight
+                ctx.beginPath();
+                ctx.arc(0, 0, r * 0.12, 0, Math.PI * 2);
+                ctx.fillStyle = this.palette.centerDot || '#FFF';
+                ctx.fill();
+            }
+
+            drawJasmine() {
+                const count = 4;
+                const step = Math.PI / 2;
+                const r = this.size * 1.05;
+                const pw = r * 0.35;
+
+                // 4-Petal Auspicious Jasmine (Madurai Malligai floret)
+                for (let i = 0; i < count; i++) {
+                    ctx.save();
+                    ctx.rotate(i * step + Math.PI / 4);
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.bezierCurveTo(-pw, -r * 0.45, -pw * 0.35, -r, 0, -r);
+                    ctx.bezierCurveTo(pw * 0.35, -r, pw, -r * 0.45, 0, 0);
+                    ctx.fillStyle = this.palette.petal;
+                    ctx.fill();
+                    ctx.strokeStyle = this.palette.edge;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                    ctx.restore();
+                }
+
+                // Golden center eye
+                ctx.beginPath();
+                ctx.arc(0, 0, r * 0.22, 0, Math.PI * 2);
+                ctx.fillStyle = this.palette.core;
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(0, 0, r * 0.08, 0, Math.PI * 2);
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fill();
+            }
+
+            drawPetal() {
+                const r = this.size * 1.1;
+                const pw = r * 0.58;
+
+                // Organic curved petal (tapered base, curved body, gentle tip)
+                ctx.beginPath();
+                ctx.moveTo(0, r * 0.85);
+                ctx.bezierCurveTo(-pw * 0.95, r * 0.35, -pw * 1.05, -r * 0.35, -pw * 0.15, -r);
+                ctx.quadraticCurveTo(0, -r * 0.86, pw * 0.15, -r);
+                ctx.bezierCurveTo(pw * 1.05, -r * 0.35, pw * 0.95, r * 0.35, 0, r * 0.85);
+                ctx.closePath();
+                ctx.fillStyle = this.palette.petal;
+                ctx.fill();
+                ctx.strokeStyle = this.palette.edge;
+                ctx.lineWidth = 0.6;
+                ctx.stroke();
+
+                // Delicate central vein
+                ctx.beginPath();
+                ctx.moveTo(0, r * 0.65);
+                ctx.quadraticCurveTo(pw * 0.12, 0, 0, -r * 0.65);
+                ctx.strokeStyle = this.palette.vein || this.palette.edge;
+                ctx.lineWidth = 0.7;
+                ctx.stroke();
             }
         }
 
         for (let i = 0; i < petalCount; i++) {
             const p = new Petal();
-            p.y = Math.random() * height; // initial random spread
             petals.push(p);
         }
 
         function animatePetals() {
             ctx.clearRect(0, 0, width, height);
-            for (let i = 0; i < petals.length; i++) {
-                petals[i].update();
-                petals[i].draw();
+            for (let i = petals.length - 1; i >= 0; i--) {
+                const alive = petals[i].update();
+                if (alive) {
+                    petals[i].draw();
+                } else if (petals[i].isBurst) {
+                    petals.splice(i, 1);
+                }
             }
             requestAnimationFrame(animatePetals);
         }
@@ -2696,14 +2842,18 @@ END:VCALENDAR`;
         }
 
         function triggerPetalBurst() {
-            // Shower celebratory petals on WhatsApp click
+            // Shower celebratory flowers & petals on WhatsApp click
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight * 0.45;
             for (let i = 0; i < 35; i++) {
-                const burstPetal = new Petal();
-                burstPetal.x = window.innerWidth / 2;
-                burstPetal.y = window.innerHeight / 2;
-                burstPetal.speedX = (Math.random() - 0.5) * 8;
-                burstPetal.speedY = (Math.random() - 0.5) * 8;
-                petals.push(burstPetal);
+                const burstFlower = new Petal(true);
+                burstFlower.x = centerX;
+                burstFlower.y = centerY;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 7 + 2.5;
+                burstFlower.speedX = Math.cos(angle) * speed;
+                burstFlower.speedY = Math.sin(angle) * speed - 2.5;
+                petals.push(burstFlower);
             }
             showToast('Opening WhatsApp to send your RSVP... 🎉');
         }
